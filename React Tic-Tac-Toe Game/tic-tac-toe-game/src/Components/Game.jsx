@@ -1,64 +1,32 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import { useState } from 'react';
 
-import 'index.css';
+import Board from './Board';
 
-function Square(props) {
-	return (
-		<button className='square' onClick={() => props.onClick()}>
-			{props.value}
-		</button>
-	);
-}
-
-function Board(props) {
-	function renderSquare(i, row, col) {
-		return (
-			<Square
-				value={props.squares[i]}
-				onClick={() => props.onClick(i, row, col)}
-			/>
-		);
-	}
-
-	//const status = 'Next player: ' + (xIsNext ? 'X' : 'O');
-
-	return (
-		<div>
-			<div className='board-row'>
-				{renderSquare(0, 1, 1)}
-				{renderSquare(1, 2, 1)}
-				{renderSquare(2, 3, 1)}
-			</div>
-			<div className='board-row'>
-				{renderSquare(3, 1, 2)}
-				{renderSquare(4, 2, 2)}
-				{renderSquare(5, 3, 2)}
-			</div>
-			<div className='board-row'>
-				{renderSquare(6, 1, 3)}
-				{renderSquare(7, 2, 3)}
-				{renderSquare(8, 3, 3)}
-			</div>
-		</div>
-	);
-}
-
-function Game() {
+const Game = () => {
 	const [history, setHistory] = useState([{ squares: Array(11).fill(null) }]);
 	const [stepNumber, setStepNumber] = useState(0);
 	const [xIsNext, setXIsNext] = useState(true);
+	const [isAscending, setIsAscending] = useState(true);
 
 	const current = history[stepNumber];
 	const winner = calculateWinner(current.squares);
 
-	const moves = history.map((step, move) => {
+	let moves = history.map((step, move) => {
+		const latestMoveSquare = step.latestMoveSquare;
+		const col = 1 + (latestMoveSquare % 3);
+		const row = 1 + Math.floor(latestMoveSquare / 3);
+
 		const desc = move
-			? `Go to move #${move} (${history[move].squares[9]},${history[move].squares[10]})`
+			? `Go to move #${move} (${col},${row})`
 			: 'Go to game start';
+
+		const classButton = move === stepNumber ? 'move-list-item-selected' : '';
+
 		return (
 			<li key={move}>
-				<button onClick={() => jumpTo(move)}>{desc}</button>
+				<button className={`${classButton}`} onClick={() => jumpTo(move)}>
+					{desc}
+				</button>
 			</li>
 		);
 	});
@@ -70,20 +38,34 @@ function Game() {
 		status = 'Next player: ' + (xIsNext ? 'X' : 'O');
 	}
 
-	const handleClick = (i, row, col) => {
+	if (!isAscending) {
+		moves.reverse();
+	}
+
+	const handleClick = i => {
 		const currentHistory = history.slice(0, stepNumber + 1);
 		const currentStep = currentHistory[currentHistory.length - 1];
 		const squares = currentStep.squares.slice();
+
 		if (calculateWinner(squares) || squares[i]) return;
 
 		squares[i] = xIsNext ? 'X' : 'O';
 
-		squares[9] = row;
-		squares[10] = col;
-
-		setHistory(currentHistory.concat([{ squares: squares }]));
+		setHistory(
+			currentHistory.concat([
+				{
+					squares: squares,
+					// Store the index of the latest moved square
+					latestMoveSquare: i,
+				},
+			])
+		);
 		setStepNumber(currentHistory.length);
 		setXIsNext(prevState => !prevState);
+	};
+
+	const handleSortToggle = () => {
+		setIsAscending(prevState => !prevState);
 	};
 
 	const jumpTo = step => {
@@ -98,15 +80,14 @@ function Game() {
 			</div>
 			<div className='game-info'>
 				<div>{status}</div>
+				<button onClick={handleSortToggle}>
+					{isAscending ? 'descending' : 'ascending'}
+				</button>
 				<ol>{moves}</ol>
 			</div>
 		</div>
 	);
-}
-
-// ========================================
-
-ReactDOM.render(<Game />, document.getElementById('root'));
+};
 
 function calculateWinner(squares) {
 	const lines = [
@@ -127,3 +108,5 @@ function calculateWinner(squares) {
 	}
 	return null;
 }
+
+export default Game;
