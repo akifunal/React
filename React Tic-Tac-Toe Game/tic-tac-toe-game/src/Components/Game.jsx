@@ -9,9 +9,8 @@ const Game = () => {
 	const [isAscending, setIsAscending] = useState(true);
 
 	const current = history[stepNumber];
-	const winnerInfo = calculateWinner(current.squares);
-	const winner = winnerInfo.winner;
-
+	const { winner, line: winnerLine } = calculateWinner(current.squares);
+	// debugger;
 	let moves = history.map((step, move) => {
 		const latestMoveSquare = step.latestMoveSquare;
 		const col = 1 + (latestMoveSquare % 3);
@@ -35,6 +34,8 @@ const Game = () => {
 	let status;
 	if (winner) {
 		status = 'Winner: ' + winner;
+	} else if (history.length === 10) {
+		status = 'Draw. No one won.';
 	} else {
 		status = 'Next player: ' + (xIsNext ? 'X' : 'O');
 	}
@@ -80,7 +81,7 @@ const Game = () => {
 				<Board
 					squares={current.squares}
 					onClick={handleClick}
-					winnerLine={winnerInfo.line}
+					winnerLine={winnerLine}
 				/>
 			</div>
 			<div className='game-info'>
@@ -111,6 +112,7 @@ function calculateWinner(squares) {
 			return { winner: squares[a], line: lines[i] };
 		}
 	}
+
 	return { winner: null };
 }
 
