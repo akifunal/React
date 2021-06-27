@@ -8,6 +8,7 @@ const Game = () => {
 	const [xIsNext, setXIsNext] = useState(true);
 	const [isAscending, setIsAscending] = useState(true);
 
+	console.log(history);
 	const current = history[stepNumber];
 	const { winner, line: winnerLine } = calculateWinner(current.squares);
 	// debugger;
@@ -75,6 +76,13 @@ const Game = () => {
 		setXIsNext(step % 2 === 0);
 	};
 
+	const reset = () => {
+		setHistory([{ squares: Array(11).fill(null) }]);
+		setXIsNext(true);
+		setStepNumber(0);
+		setIsAscending(true);
+	};
+
 	return (
 		<div className='game'>
 			<div className='game-board'>
@@ -86,8 +94,11 @@ const Game = () => {
 			</div>
 			<div className='game-info'>
 				<div>{status}</div>
-				<button onClick={handleSortToggle}>
+				<button className='button' onClick={handleSortToggle}>
 					{isAscending ? 'descending' : 'ascending'}
+				</button>
+				<button className='button button--new-game' onClick={reset}>
+					New game
 				</button>
 				<ol>{moves}</ol>
 			</div>
