@@ -2,11 +2,13 @@ import Square from './Square';
 
 const Board = props => {
 	function renderSquare(i) {
+		const winnerLine = props.winnerLine;
 		return (
 			<Square
 				key={i}
 				value={props.squares[i]}
 				onClick={() => props.onClick(i)}
+				highlight={winnerLine && winnerLine.includes(i)}
 			/>
 		);
 	}
