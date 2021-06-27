@@ -1,5 +1,11 @@
 # React Tic-Tac-Toe Game
 
+Usage:
+
+npm install
+
+npm start
+
 [Tutorial link](https://reactjs.org/tutorial/tutorial.html)
 
 Advanced features:
