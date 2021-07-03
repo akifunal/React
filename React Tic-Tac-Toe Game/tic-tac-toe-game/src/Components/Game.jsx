@@ -8,10 +8,10 @@ const Game = () => {
 	const [xIsNext, setXIsNext] = useState(true);
 	const [isAscending, setIsAscending] = useState(true);
 
-	console.log(history);
+	// console.log(history);
 	const current = history[stepNumber];
 	const { winner, line: winnerLine } = calculateWinner(current.squares);
-	// debugger;
+
 	let moves = history.map((step, move) => {
 		const latestMoveSquare = step.latestMoveSquare;
 		const col = 1 + (latestMoveSquare % 3);
