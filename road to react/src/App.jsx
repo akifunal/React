@@ -40,7 +40,7 @@ const App = () => {
 
 	return (
 		<div>
-			<h1>My Hacket Stories</h1>
+			<h1>My Hacker Stories</h1>
 			<Search onSearch={handleSearch} search={searchTerm} />
 			<hr />
 			<List list={searchedStories} />
