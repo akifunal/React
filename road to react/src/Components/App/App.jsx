@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import List from './Components/List';
-import Search from './Components/Search';
+import List from '@List/List';
+import Search from '@Search/Search';
+import useSemiPersistentState from '@Hooks/useSemiPersistentState';
 
 const App = () => {
 	const stories = [
@@ -22,14 +22,7 @@ const App = () => {
 		},
 	];
 
-	const [searchTerm, setSearchTerm] = useState(
-		localStorage.getItem('search') || 'React'
-	);
-
-	useEffect(() => {
-		localStorage.setItem('search', searchTerm);
-	}, [searchTerm]);
-
+	const [searchTerm, setSearchTerm] = useSemiPersistentState();
 	const searchedStories = stories.filter(story =>
 		story.title.toLowerCase().includes(searchTerm.toLowerCase())
 	);
