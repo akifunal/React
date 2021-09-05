@@ -22,7 +22,8 @@ const App = () => {
 		},
 	];
 
-	const [searchTerm, setSearchTerm] = useSemiPersistentState();
+	const [searchTerm, setSearchTerm] = useSemiPersistentState('state', 'React');
+
 	const searchedStories = stories.filter(story =>
 		story.title.toLowerCase().includes(searchTerm.toLowerCase())
 	);
@@ -32,12 +33,16 @@ const App = () => {
 	};
 
 	return (
-		<div>
-			<h1>My Hacker Stories</h1>
-			<Search onSearch={handleSearch} search={searchTerm} />
-			<hr />
-			<List list={searchedStories} />
-		</div>
+		<>
+			<header>
+				<h1>My Hacker Stories</h1>
+			</header>
+			<main>
+				<Search onSearch={handleSearch} search={searchTerm} />
+				<hr />
+				<List list={searchedStories} />
+			</main>
+		</>
 	);
 };
 

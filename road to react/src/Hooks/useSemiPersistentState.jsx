@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
 
-const useSemiPersistentState = () => {
-	const [searchTerm, setSearchTerm] = useState(
-		localStorage.getItem('search') || 'React'
-	);
+const useSemiPersistentState = (key, initialState) => {
+	const [value, setValue] = useState(localStorage.getItem(key) || initialState);
 
 	useEffect(() => {
-		localStorage.setItem('search', searchTerm);
-	}, [searchTerm]);
+		localStorage.setItem(key, value);
+	}, [value, key]);
 
-	return [searchTerm, setSearchTerm];
+	return [value, setValue];
 };
 
 export default useSemiPersistentState;
