@@ -8,7 +8,7 @@
 			"@App/*": ["Components/App/*"],
 			"@List/*": ["Components/List/*"],
 			"@Item/*": ["Components/List/Item/*"],
-			"@Search/*": ["Components/Search/*"]
+			"@InputWithLabel/*": ["Components/InputWithLabel/*"]
 		}
 	},
 	"exclude": ["node_modules", "**/node_modules/*"]

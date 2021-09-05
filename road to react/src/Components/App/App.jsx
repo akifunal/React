@@ -1,5 +1,5 @@
 import List from '@List/List';
-import Search from '@Search/Search';
+import InputWithLabel from '@InputWithLabel/InputWithLabel';
 import useSemiPersistentState from '@Hooks/useSemiPersistentState';
 
 const App = () => {
@@ -38,7 +38,12 @@ const App = () => {
 				<h1>My Hacker Stories</h1>
 			</header>
 			<main>
-				<Search onSearch={handleSearch} search={searchTerm} />
+				<InputWithLabel
+					id='search'
+					label='Search:'
+					value={searchTerm}
+					onInputChange={handleSearch}
+				/>
 				<hr />
 				<List list={searchedStories} />
 			</main>

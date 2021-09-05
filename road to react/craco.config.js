@@ -9,7 +9,10 @@ module.exports = {
 			'@App': path.resolve(__dirname, 'src/Components/App'),
 			'@List': path.resolve(__dirname, 'src/Components/List'),
 			'@Item': path.resolve(__dirname, 'src/Components/List/Item'),
-			'@Search': path.resolve(__dirname, 'src/Components/Search'),
+			'@InputWithLabel': path.resolve(
+				__dirname,
+				'src/Components/InputWithLabel'
+			),
 		},
 	},
 };

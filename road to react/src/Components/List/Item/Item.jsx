@@ -1,6 +1,6 @@
 const Item = ({ item }) => {
 	return (
-		<div class='item'>
+		<div className='item'>
 			<span>
 				<a href={item.url}>{item.title}</a>
 			</span>
