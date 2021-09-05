@@ -1,7 +1,13 @@
 import styles from '@InputWithLabel/InputWithLabel.module.sass';
-const InputWithLabel = ({ id, label, value, type = 'text', onInputChange }) => (
-	<section id='input-section'>
-		<label htmlFor={id}>{label} </label>
+const InputWithLabel = ({
+	id,
+	value,
+	type = 'text',
+	onInputChange,
+	children,
+}) => (
+	<section id={styles['input-section']}>
+		<label htmlFor={id}>{children} </label>
 		<input
 			className={styles.input}
 			type={type}
