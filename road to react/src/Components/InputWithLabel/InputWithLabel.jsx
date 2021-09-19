@@ -1,4 +1,4 @@
-import styles from '@InputWithLabel/InputWithLabel.module.sass';
+import styles from '@InputWithLabel/InputWithLabel.module.scss';
 const InputWithLabel = ({
 	id,
 	value,
