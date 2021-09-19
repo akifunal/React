@@ -1,5 +1,5 @@
 {
-	"name": "react-starter",
+	"name": "road-to-react",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
@@ -38,10 +38,15 @@
 		]
 	},
 	"devDependencies": {
+		"autoprefixer": "^9.8.6",
+		"postcss": "^7.0.36",
 		"sass": "^1.38.2",
 		"sass-loader": "^10.1.1",
 		"stylelint": "^13.13.1",
-		"stylelint-config-sass-guidelines": "^8.0.0",
+		"stylelint-config-recommended-scss": "^4.3.0",
+		"stylelint-order": "^4.1.0",
+		"stylelint-scss": "^3.21.0",
+		"tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
 		"webpack": "^4.44.2"
 	}
 }
