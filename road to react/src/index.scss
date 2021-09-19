@@ -12,7 +12,7 @@
 }
 
 html {
-	font-size: 28px;
+	font-size: 16px;
 }
 
 body {
@@ -20,39 +20,4 @@ body {
 		'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-}
-
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-form {
-	width: 400px;
-}
-
-[type='text'] {
-	border-radius: 0.25rem;
-	box-shadow: 2px 2px 5px #000;
-	font-size: 1rem;
-	margin: 1rem 0;
-	outline: none;
-	padding: 0.25rem;
-}
-
-button {
-	border-radius: 0.25rem;
-	box-shadow: 2px 2px 5px #000;
-	margin-top: 0.5rem;
-	min-height: 48px;
-	padding: 0.25rem;
-	width: 100%;
-}
-
-hr {
-	margin-bottom: 1rem;
-}
-
-.search-header {
-	font-size: 1.2rem;
-	font-weight: 500;
 }

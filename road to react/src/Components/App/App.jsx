@@ -34,8 +34,10 @@ const App = () => {
 
 	return (
 		<>
-			<header>
-				<h1>My Hacker Stories</h1>
+			<header className='p-3 text-center'>
+				<h1 className='text-gray-600 text-4xl text-center dark:text-gray-200 w-1/2'>
+					My Hacker Stories
+				</h1>
 			</header>
 			<main>
 				<InputWithLabel
@@ -44,7 +46,7 @@ const App = () => {
 					onInputChange={handleSearch}>
 					<strong>Search:</strong>
 				</InputWithLabel>
-				<hr />
+				<hr className='my-4' />
 				<List list={searchedStories} />
 			</main>
 		</>
