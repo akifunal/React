@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const useSemiPersistentState = (key, initialState) => {
 	const [value, setValue] = useState(localStorage.getItem(key) || initialState);
@@ -8,6 +9,11 @@ const useSemiPersistentState = (key, initialState) => {
 	}, [value, key]);
 
 	return [value, setValue];
+};
+
+useSemiPersistentState.propTypes = {
+	key: PropTypes.string.isRequired,
+	initialState: PropTypes.string.isRequired,
 };
 
 export default useSemiPersistentState;

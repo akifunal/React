@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const InputWithLabel = ({
 	id,
 	value,
@@ -10,7 +12,7 @@ const InputWithLabel = ({
 			{children}{' '}
 		</label>
 		<input
-			className='focus:outline-none focus:ring-4 focus:ring-steel-blue-default ml-4 p-2 shadow-md rounded-md tracking-wide  dark:bg-gray-400 dark:text-gray-100 '
+			className='p-2 ml-4 tracking-wide rounded-md shadow-md focus:outline-none focus:ring-4 focus:ring-steel-blue-default dark:bg-gray-400 dark:text-gray-100 '
 			type={type}
 			id={id}
 			onChange={onInputChange}
@@ -18,5 +20,13 @@ const InputWithLabel = ({
 		/>
 	</section>
 );
+
+InputWithLabel.propTypes = {
+	id: PropTypes.string.isRequired,
+	value: PropTypes.string.isRequired,
+	type: PropTypes.string,
+	onInputChange: PropTypes.func.isRequired,
+	children: PropTypes.node.isRequired,
+};
 
 export default InputWithLabel;
