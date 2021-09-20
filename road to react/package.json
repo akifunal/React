@@ -40,6 +40,7 @@
 	"devDependencies": {
 		"autoprefixer": "^9.8.6",
 		"postcss": "^7.0.36",
+		"prop-type": "^0.0.1",
 		"sass": "^1.38.2",
 		"sass-loader": "^10.1.1",
 		"stylelint": "^13.13.1",
