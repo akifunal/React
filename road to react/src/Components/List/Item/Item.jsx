@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-
+import { memo } from 'react';
 const Item = ({ item }) => {
 	return (
 		<div className='flex justify-start gap-3 p-4 dark:text-gray-200'>
@@ -26,4 +26,4 @@ Item.propTypes = {
 	}).isRequired,
 };
 
-export default Item;
+export default memo(Item);

@@ -18,7 +18,6 @@ List.propTypes = {
 	list: arrayOf(
 		shape({
 			objectID: number.isRequired,
-			...Item.propTypes.item,
 		})
 	).isRequired,
 };
