@@ -34,8 +34,8 @@ const App = () => {
 
 	return (
 		<>
-			<header className='p-3 text-center'>
-				<h1 className='text-gray-600 text-4xl text-center dark:text-gray-200 w-1/2'>
+			<header className='p-3'>
+				<h1 className='w-1/4 text-4xl text-center text-gray-600  dark:text-gray-200'>
 					My Hacker Stories
 				</h1>
 			</header>
