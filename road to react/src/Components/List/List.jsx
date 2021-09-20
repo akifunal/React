@@ -1,5 +1,5 @@
 import Item from '@Item/Item';
-import PropTypes from 'prop-types';
+import { shape, arrayOf, number } from 'prop-types';
 
 const List = ({ list }) => {
 	return list.length > 0 ? (
@@ -15,9 +15,9 @@ const List = ({ list }) => {
 };
 
 List.propTypes = {
-	list: PropTypes.arrayOf(
-		PropTypes.shape({
-			objectID: PropTypes.number.isRequired,
+	list: arrayOf(
+		shape({
+			objectID: number.isRequired,
 			...Item.propTypes.item,
 		})
 	).isRequired,

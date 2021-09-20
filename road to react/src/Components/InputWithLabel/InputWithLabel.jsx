@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { string, func, node } from 'prop-types';
 
 const InputWithLabel = ({
 	id,
@@ -22,11 +22,11 @@ const InputWithLabel = ({
 );
 
 InputWithLabel.propTypes = {
-	id: PropTypes.string.isRequired,
-	value: PropTypes.string.isRequired,
-	type: PropTypes.string,
-	onInputChange: PropTypes.func.isRequired,
-	children: PropTypes.node.isRequired,
+	id: string.isRequired,
+	value: string.isRequired,
+	type: string,
+	onInputChange: func.isRequired,
+	children: node.isRequired,
 };
 
 export default InputWithLabel;
