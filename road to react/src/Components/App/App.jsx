@@ -2,6 +2,8 @@ import List from '@List/List';
 import InputWithLabel from '@InputWithLabel/InputWithLabel';
 import useSemiPersistentState from '@Hooks/useSemiPersistentState';
 
+import ChildTest from '../Rerender Test Child/ChildTest';
+
 const App = () => {
 	const stories = [
 		{
@@ -45,6 +47,8 @@ const App = () => {
 					value={searchTerm}
 					onInputChange={handleSearch}>
 					<strong>Search:</strong>
+					<ChildTest />
+					<ChildTest />
 				</InputWithLabel>
 				<hr className='my-4' />
 				<List list={searchedStories} />
