@@ -2,7 +2,7 @@
 	"extends": ["stylelint-config-recommended-scss"],
 	"plugins": ["stylelint-order", "stylelint-scss"],
 	"rules": {
-		"indentation": "tab",
+		"indentation": null,
 		"number-leading-zero": null,
 		"order/properties-alphabetical-order": true,
 
@@ -15,7 +15,8 @@
 					"apply",
 					"variants",
 					"responsive",
-					"screen"
+					"screen",
+					"layer"
 				]
 			}
 		]

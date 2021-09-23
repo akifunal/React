@@ -6,6 +6,15 @@
 //@import './_base.scss';
 //@import './_typography.scss';
 
+// @layer base {
+//   h1 {
+//     @apply text-2xl;
+//   }
+//   h2 {
+//     @apply text-xl;
+//   }
+// }
+
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */
