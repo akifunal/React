@@ -1,6 +1,8 @@
 import { string, func, node } from 'prop-types';
 import { useState } from 'react';
 
+import styles from './InputWithLabel.module.scss';
+
 const InputWithLabel = ({
 	id,
 	value,
@@ -20,7 +22,7 @@ const InputWithLabel = ({
 				{children}
 			</label>
 			<input
-				className='p-2 ml-4 tracking-wide rounded-md shadow-md focus:outline-none focus:ring-4 focus:ring-steel-blue-default dark:bg-gray-400 dark:text-gray-100 dark:placeholder-blue-200'
+				className={styles['input-text']}
 				type={type}
 				id={id}
 				onChange={onInputChange}
@@ -28,7 +30,7 @@ const InputWithLabel = ({
 				placeholder='Search'
 			/>
 			<input
-				className='p-2 ml-4 tracking-wide rounded-md shadow-md focus:outline-none focus:ring-4 focus:ring-steel-blue-default dark:bg-gray-400 dark:text-gray-100 dark:placeholder-blue-200'
+				className={styles['input-text']}
 				type='text'
 				value={text}
 				onChange={handleChange}
