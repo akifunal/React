@@ -1,6 +1,6 @@
 import List from '@List/List';
 import InputWithLabel from '@InputWithLabel/InputWithLabel';
-import useSemiPersistentState from '@Hooks/useSemiPersistentState';
+import useSemiPersistentState from '@hooks/useSemiPersistentState';
 
 import ChildTest from '../Rerender Test Child/ChildTest';
 

@@ -3,13 +3,14 @@
 		"jsx": "preserve",
 		"baseUrl": "./src",
 		"paths": {
-			"@Components/*": ["Components/*"],
-			"@Hooks/*": ["Hooks/*"],
-			"@App/*": ["Components/App/*"],
-			"@List/*": ["Components/List/*"],
-			"@Item/*": ["Components/List/Item/*"],
-			"@InputWithLabel/*": ["Components/InputWithLabel/*"],
-			"@Hoc/*": ["Components/Hoc/*"]
+			"@components/*": ["components/*"],
+			"@hooks/*": ["hooks/*"],
+			"@helper/*": ["helper/*"],
+
+			"@App/*": ["components/App/*"],
+			"@InputWithLabel/*": ["components/InputWithLabel/*"],
+			"@List/*": ["components/List/*"],
+			"@Item/*": ["components/List/Item/*"]
 		}
 	},
 	"exclude": ["node_modules", "**/node_modules/*"]

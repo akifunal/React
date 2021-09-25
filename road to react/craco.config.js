@@ -4,16 +4,20 @@ module.exports = {
 	webpack: {
 		alias: {
 			'@': path.resolve(__dirname, 'src'),
-			'@Components': path.resolve(__dirname, 'src/Components'),
-			'@Hooks': path.resolve(__dirname, 'src/Hooks'),
-			'@App': path.resolve(__dirname, 'src/Components/App'),
-			'@List': path.resolve(__dirname, 'src/Components/List'),
-			'@Item': path.resolve(__dirname, 'src/Components/List/Item'),
+
+			// Folders
+			'@components': path.resolve(__dirname, 'src/components'),
+			'@hooks': path.resolve(__dirname, 'src/hooks'),
+			'@helper': path.resolve(__dirname, 'src/helper'),
+
+			// Components
+			'@App': path.resolve(__dirname, 'src/components/App'),
+			'@List': path.resolve(__dirname, 'src/components/List'),
+			'@Item': path.resolve(__dirname, 'src/components/List/Item'),
 			'@InputWithLabel': path.resolve(
 				__dirname,
-				'src/Components/InputWithLabel'
+				'src/components/InputWithLabel'
 			),
-			'@Hoc': path.resolve(__dirname, 'src/Components/Hoc'),
 		},
 	},
 	style: {

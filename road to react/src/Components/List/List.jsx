@@ -1,13 +1,13 @@
 import React from 'react';
 import { arrayOf, shape, number } from 'prop-types';
-import Item from '@Item/Item';
-import Hoc from '@Hoc/Hoc';
+import Item from 'components/List/Item/Item';
+import withOrangeWrapper from '@helper/withOrangeWrapper';
 
 const List = ({ list }) =>
 	list.length > 0 ? (
 		<section id='result-list'>
 			{list.map(({ objectID, ...item }) => {
-				const ItemEnhanced = Hoc(Item, 'ItemWithBg');
+				const ItemEnhanced = withOrangeWrapper(Item, 'ItemWithBg');
 
 				return (
 					<React.Fragment key={objectID}>

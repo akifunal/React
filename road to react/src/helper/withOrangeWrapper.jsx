@@ -8,7 +8,7 @@ const withOrangeWrapper = (Component, name) => {
 	};
 
 	// To show component name on react developer tools
-	withHocComponent.displayName = `withOrangeWrapper(${name})`;
+	withHocComponent.displayName = `WithOrangeWrapper(${name})`;
 
 	return withHocComponent;
 };
