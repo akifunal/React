@@ -13,6 +13,7 @@ module.exports = {
 				__dirname,
 				'src/Components/InputWithLabel'
 			),
+			'@Hoc': path.resolve(__dirname, 'src/Components/Hoc'),
 		},
 	},
 	style: {
