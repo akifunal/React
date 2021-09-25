@@ -8,7 +8,7 @@ module.exports = {
 			// Folders
 			'@components': path.resolve(__dirname, 'src/components'),
 			'@hooks': path.resolve(__dirname, 'src/hooks'),
-			'@helper': path.resolve(__dirname, 'src/helper'),
+			'@helper': path.resolve(__dirname, 'src/helpers'),
 
 			// Components
 			'@App': path.resolve(__dirname, 'src/components/App'),

@@ -5,7 +5,7 @@
 		"paths": {
 			"@components/*": ["components/*"],
 			"@hooks/*": ["hooks/*"],
-			"@helper/*": ["helper/*"],
+			"@helper/*": ["helpers/*"],
 
 			"@App/*": ["components/App/*"],
 			"@InputWithLabel/*": ["components/InputWithLabel/*"],

@@ -45,7 +45,7 @@ InputWithLabel.propTypes = {
 	value: string.isRequired,
 	type: string,
 	onInputChange: func.isRequired,
-	children: node.isRequired,
+	children: node,
 };
 
 export default InputWithLabel;
