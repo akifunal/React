@@ -1,6 +1,6 @@
 import React from 'react';
 import { arrayOf, shape, number } from 'prop-types';
-import Item from 'components/List/Item/Item';
+import Item from '@Item/Item';
 import withOrangeWrapper from '@helper/withOrangeWrapper';
 
 const List = ({ list }) =>
