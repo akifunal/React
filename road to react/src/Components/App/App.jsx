@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import List from '@List/List';
 import InputWithLabel from '@InputWithLabel/InputWithLabel';
@@ -25,9 +25,18 @@ const initialStories = [
 	},
 ];
 
+const getAsyncStories = () =>
+	new Promise(resolve => {
+		setTimeout(() => resolve({ data: { stories: initialStories } }), 1500);
+	});
+
 const App = () => {
-	const [stories, setStories] = useState(initialStories);
+	const [stories, setStories] = useState([]);
 	const [searchTerm, setSearchTerm] = useSemiPersistentState('state', 'React');
+
+	useEffect(() => {
+		getAsyncStories().then(res => setStories(res.data.stories));
+	}, []);
 
 	const searchedStories = stories.filter(story =>
 		story.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -42,6 +51,13 @@ const App = () => {
 			return prevStories.filter(story => item.objectID !== story.objectID);
 		});
 	};
+
+	if (!stories.length)
+		return (
+			<div className='flex items-center justify-center h-full text-5xl dark:text-white-default'>
+				Loading...
+			</div>
+		);
 
 	return (
 		<>
