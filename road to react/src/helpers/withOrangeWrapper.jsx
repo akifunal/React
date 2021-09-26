@@ -1,5 +1,5 @@
 const withOrangeWrapper = (Component, name) => {
-	const withHocComponent = props => {
+	const WrappedComponent = props => {
 		return (
 			<div className='min-h-full bg-yellow-600'>
 				<Component {...props} />
@@ -8,10 +8,9 @@ const withOrangeWrapper = (Component, name) => {
 	};
 
 	// To show component name on react developer tools
-	withHocComponent.displayName = `WithOrangeWrapper(${name})`;
+	WrappedComponent.displayName = `WithOrangeWrapper(${name})`;
 
-	return withHocComponent;
+	return WrappedComponent;
 };
 
-withOrangeWrapper.displayName = 'HocTest!!';
 export default withOrangeWrapper;

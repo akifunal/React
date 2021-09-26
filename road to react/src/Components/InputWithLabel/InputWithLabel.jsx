@@ -1,16 +1,22 @@
 import { string, func, node } from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import styles from './InputWithLabel.module.scss';
 
 const InputWithLabel = ({
 	id,
+	isFocused,
 	value,
 	type = 'text',
 	onInputChange,
 	children,
 }) => {
 	const [text, setText] = useState('');
+	const inputRef = useRef();
+
+	useEffect(() => {
+		if (isFocused && inputRef.current) inputRef.current.focus();
+	}, [isFocused]);
 
 	const handleChange = e => setText(e.target.value);
 
@@ -22,19 +28,22 @@ const InputWithLabel = ({
 				{children}
 			</label>
 			<input
-				className={styles['input-text']}
 				type={type}
+				className={styles['input-text']}
 				id={id}
-				onChange={onInputChange}
 				value={value}
 				placeholder='Search'
+				onChange={onInputChange}
+				ref={inputRef}
+				// autoFocus={isFocused}
 			/>
 			<input
+				type={type}
 				className={styles['input-text']}
-				type='text'
 				value={text}
-				onChange={handleChange}
 				placeholder='Test placeholder'
+				onChange={handleChange}
+				// autoFocus={isFocused}
 			/>
 		</section>
 	);
