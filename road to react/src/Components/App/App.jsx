@@ -32,10 +32,18 @@ const getAsyncStories = () =>
 
 const App = () => {
 	const [stories, setStories] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const [isError, setIsError] = useState(false);
 	const [searchTerm, setSearchTerm] = useSemiPersistentState('state', 'React');
 
 	useEffect(() => {
-		getAsyncStories().then(res => setStories(res.data.stories));
+		getAsyncStories()
+			.then(res => {
+				setStories(res.data.stories);
+				setIsLoading(prevIsLoading => !prevIsLoading);
+				throw new Error('Something went wrong');
+			})
+			.catch(err => setIsError(prevIsError => !prevIsError));
 	}, []);
 
 	const searchedStories = stories.filter(story =>
@@ -51,13 +59,6 @@ const App = () => {
 			return prevStories.filter(story => item.objectID !== story.objectID);
 		});
 	};
-
-	if (!stories.length)
-		return (
-			<div className='flex items-center justify-center h-full text-5xl dark:text-white-default'>
-				Loading...
-			</div>
-		);
 
 	return (
 		<>
@@ -77,7 +78,18 @@ const App = () => {
 					<ChildTest />
 				</InputWithLabel>
 				<hr className='my-4' />
-				<List list={searchedStories} onRemoveItem={handleRemoveStory} />
+
+				{isError ? (
+					<p className='flex items-center justify-center h-full text-5xl dark:text-white-default'>
+						Something went wrong...
+					</p>
+				) : isLoading ? (
+					<p className='flex items-center justify-center h-full text-5xl dark:text-white-default'>
+						Loading...
+					</p>
+				) : (
+					<List list={searchedStories} onRemoveItem={handleRemoveStory} />
+				)}
 			</main>
 		</>
 	);

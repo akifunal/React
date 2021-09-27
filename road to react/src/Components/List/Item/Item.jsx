@@ -6,7 +6,7 @@ const Item = ({ item, onRemoveItem }) => {
 	};
 
 	return (
-		<div className='flex justify-start gap-3 p-4 dark:text-gray-200'>
+		<div className='flex items-center justify-start gap-3 p-4 dark:text-gray-200'>
 			<span>
 				<a className='hover:bg-steel-blue-default' href={item.url}>
 					{item.title}
@@ -16,7 +16,10 @@ const Item = ({ item, onRemoveItem }) => {
 			<span>{item.num_comments}</span>
 			<span>{item.points}</span>
 			<span>
-				<button type='button' onClick={handleRemoveItem}>
+				<button
+					className='px-2 py-1 font-semibold text-gray-800 bg-white border border-gray-400 rounded shadow hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-400'
+					type='button'
+					onClick={handleRemoveItem}>
 					Dismiss
 				</button>
 			</span>
