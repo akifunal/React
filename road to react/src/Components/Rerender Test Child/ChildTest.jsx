@@ -1,7 +1,12 @@
+import { useContext } from 'react';
+
+import { ContextTest } from '@App/App';
+
 const ChildTest = () => {
+	const { searchTerm } = useContext(ContextTest);
 	return (
 		<div>
-			<h1>Child Test</h1>
+			<p>{searchTerm}</p>
 		</div>
 	);
 };

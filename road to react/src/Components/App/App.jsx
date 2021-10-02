@@ -1,10 +1,17 @@
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import List from '@List/List';
 import InputWithLabel from '@InputWithLabel/InputWithLabel';
 import useSemiPersistentState from '@hooks/useSemiPersistentState';
 
 import ChildTest from '../Rerender Test Child/ChildTest';
+
+export const ContextTest = createContext({
+	text: 'Default value',
+	setText: () => {},
+});
+
+const contextTestText = 'Selamlar context';
 
 const initialStories = [
 	{
@@ -43,7 +50,7 @@ const App = () => {
 				setIsLoading(prevIsLoading => !prevIsLoading);
 				throw new Error('Something went wrong');
 			})
-			.catch(err => setIsError(prevIsError => !prevIsError));
+			.catch(() => setIsError(true));
 	}, []);
 
 	const searchedStories = stories.filter(story =>
@@ -68,17 +75,19 @@ const App = () => {
 				</h1>
 			</header>
 			<main>
-				<InputWithLabel
-					id='search'
-					isFocused
-					value={searchTerm}
-					onInputChange={handleSearch}>
-					<strong>Search:</strong>
-					<ChildTest />
-					<ChildTest />
-				</InputWithLabel>
-				<hr className='my-4' />
+				<ContextTest.Provider value={{ searchTerm, setSearchTerm }}>
+					<InputWithLabel
+						id='search'
+						isFocused
+						value={searchTerm}
+						onInputChange={handleSearch}>
+						<strong>Search:</strong>
+						<ChildTest />
+						<ChildTest />
+					</InputWithLabel>
+				</ContextTest.Provider>
 
+				<hr className='my-4' />
 				{isError ? (
 					<p className='flex items-center justify-center h-full text-5xl dark:text-white-default'>
 						Something went wrong...
