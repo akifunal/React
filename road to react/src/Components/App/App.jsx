@@ -1,4 +1,10 @@
-import { createContext, useEffect, useState } from 'react';
+import {
+	createContext,
+	useContext,
+	useEffect,
+	useReducer,
+	useState,
+} from 'react';
 
 import List from '@List/List';
 import InputWithLabel from '@InputWithLabel/InputWithLabel';
@@ -6,12 +12,17 @@ import useSemiPersistentState from '@hooks/useSemiPersistentState';
 
 import ChildTest from '../Rerender Test Child/ChildTest';
 
-export const ContextTest = createContext({
-	text: 'Default value',
-	setText: () => {},
-});
+const ContextTest = createContext();
 
-const contextTestText = 'Selamlar context';
+export const useContextTest = () => {
+	const context = useContext(ContextTest);
+	if (context === undefined) {
+		throw new Error(
+			'useContextTest must be used within a ContextTest.Provider '
+		);
+	}
+	return context;
+};
 
 const initialStories = [
 	{
@@ -32,23 +43,40 @@ const initialStories = [
 	},
 ];
 
+const storiesReducer = (state, action) => {
+	switch (action.type) {
+		case 'SET_STORIES':
+			return action.payload;
+		case 'ADD_STORY':
+			return [...state, action.payload];
+		case 'REMOVE_STORY':
+			return state.filter(story => story.objectID !== action.payload.objectID);
+		default:
+			throw new Error('action type not found!');
+	}
+};
+
 const getAsyncStories = () =>
 	new Promise(resolve => {
 		setTimeout(() => resolve({ data: { stories: initialStories } }), 1500);
 	});
 
 const App = () => {
-	const [stories, setStories] = useState([]);
+	//const [stories, setStories] = useState([]);
+	const [stories, dispatchStories] = useReducer(storiesReducer, []);
+
 	const [isLoading, setIsLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
+
 	const [searchTerm, setSearchTerm] = useSemiPersistentState('state', 'React');
 
 	useEffect(() => {
 		getAsyncStories()
-			.then(res => {
-				setStories(res.data.stories);
-				setIsLoading(prevIsLoading => !prevIsLoading);
-				throw new Error('Something went wrong');
+			.then(result => {
+				//setStories(result.data.stories);
+				dispatchStories({ type: 'SET_STORIES', payload: result.data.stories });
+				setIsLoading(false);
+				//throw new Error('Something went wrong');
 			})
 			.catch(() => setIsError(true));
 	}, []);
@@ -62,8 +90,13 @@ const App = () => {
 	};
 
 	const handleRemoveStory = item => {
-		setStories(prevStories => {
-			return prevStories.filter(story => item.objectID !== story.objectID);
+		// setStories(prevStories => {
+		// 	return prevStories.filter(story => item.objectID !== story.objectID);
+		// });
+
+		dispatchStories({
+			type: 'REMOVE_STORY',
+			payload: item,
 		});
 	};
 
@@ -74,6 +107,7 @@ const App = () => {
 					My Hacker Stories
 				</h1>
 			</header>
+
 			<main>
 				<ContextTest.Provider value={{ searchTerm, setSearchTerm }}>
 					<InputWithLabel
@@ -88,6 +122,7 @@ const App = () => {
 				</ContextTest.Provider>
 
 				<hr className='my-4' />
+
 				{isError ? (
 					<p className='flex items-center justify-center h-full text-5xl dark:text-white-default'>
 						Something went wrong...

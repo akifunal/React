@@ -1,12 +1,10 @@
-import { useContext } from 'react';
-
-import { ContextTest } from '@App/App';
+import { useContextTest } from '@App/App';
 
 const ChildTest = () => {
-	const { searchTerm } = useContext(ContextTest);
+	const { searchTerm } = useContextTest();
 	return (
 		<div>
-			<p>{searchTerm}</p>
+			<p>{`Context: ${searchTerm}`}</p>
 		</div>
 	);
 };
