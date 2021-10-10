@@ -1,10 +1,4 @@
-import {
-	createContext,
-	useContext,
-	useEffect,
-	useReducer,
-	useState,
-} from 'react';
+import { createContext, useContext, useEffect, useReducer } from 'react';
 
 import List from '@List/List';
 import InputWithLabel from '@InputWithLabel/InputWithLabel';
@@ -15,13 +9,13 @@ import ChildTest from '../Rerender Test Child/ChildTest';
 const ContextTest = createContext();
 
 export const useContextTest = () => {
-	const context = useContext(ContextTest);
-	if (context === undefined) {
+	const contextTest = useContext(ContextTest);
+	if (contextTest === undefined) {
 		throw new Error(
 			'useContextTest must be used within a ContextTest.Provider '
 		);
 	}
-	return context;
+	return contextTest;
 };
 
 const initialStories = [
@@ -45,12 +39,32 @@ const initialStories = [
 
 const storiesReducer = (state, action) => {
 	switch (action.type) {
-		case 'SET_STORIES':
-			return action.payload;
-		case 'ADD_STORY':
-			return [...state, action.payload];
+		case 'STORIES_FETCH_INIT':
+			return {
+				...state,
+				isLoading: true,
+				isError: false,
+			};
+		case 'STORIES_FETCH_SUCCESS':
+			return {
+				...state,
+				isLoading: false,
+				isError: false,
+				data: action.payload,
+			};
+		case 'STORIES_FETCH_FAILURE':
+			return {
+				...state,
+				isLoading: false,
+				isError: true,
+			};
 		case 'REMOVE_STORY':
-			return state.filter(story => story.objectID !== action.payload.objectID);
+			return {
+				...state,
+				data: state.data.filter(
+					story => story.objectID !== action.payload.objectID
+				),
+			};
 		default:
 			throw new Error('action type not found!');
 	}
@@ -63,25 +77,35 @@ const getAsyncStories = () =>
 
 const App = () => {
 	//const [stories, setStories] = useState([]);
-	const [stories, dispatchStories] = useReducer(storiesReducer, []);
-
-	const [isLoading, setIsLoading] = useState(true);
-	const [isError, setIsError] = useState(false);
+	const [stories, dispatchStories] = useReducer(storiesReducer, {
+		data: [],
+		isLoading: false,
+		isError: false,
+	});
 
 	const [searchTerm, setSearchTerm] = useSemiPersistentState('state', 'React');
 
 	useEffect(() => {
+		dispatchStories({ type: 'STORIES_FETCH_INIT' });
+
 		getAsyncStories()
 			.then(result => {
-				//setStories(result.data.stories);
-				dispatchStories({ type: 'SET_STORIES', payload: result.data.stories });
-				setIsLoading(false);
+				dispatchStories({
+					type: 'STORIES_FETCH_SUCCESS',
+					payload: result.data.stories,
+				});
+
+				// dispatchStories({ type: 'SET_STORIES', payload: result.data.stories });
+				// setIsLoading(false);
 				//throw new Error('Something went wrong');
 			})
-			.catch(() => setIsError(true));
+			.catch(
+				() => dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
+				// setIsError(true)
+			);
 	}, []);
 
-	const searchedStories = stories.filter(story =>
+	const searchedStories = stories.data.filter(story =>
 		story.title.toLowerCase().includes(searchTerm.toLowerCase())
 	);
 
@@ -90,10 +114,6 @@ const App = () => {
 	};
 
 	const handleRemoveStory = item => {
-		// setStories(prevStories => {
-		// 	return prevStories.filter(story => item.objectID !== story.objectID);
-		// });
-
 		dispatchStories({
 			type: 'REMOVE_STORY',
 			payload: item,
@@ -123,11 +143,11 @@ const App = () => {
 
 				<hr className='my-4' />
 
-				{isError ? (
+				{stories.isError ? (
 					<p className='flex items-center justify-center h-full text-5xl dark:text-white-default'>
 						Something went wrong...
 					</p>
-				) : isLoading ? (
+				) : stories.isLoading ? (
 					<p className='flex items-center justify-center h-full text-5xl dark:text-white-default'>
 						Loading...
 					</p>
