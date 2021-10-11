@@ -30,7 +30,7 @@ const InputWithLabel = forwardRef(
 					placeholder='Search'
 					onChange={onInputChange}
 					ref={inputRef}
-					// autoFocus={isFocused}
+					//autoFocus={isFocused}
 				/>
 				<input
 					type={type}
@@ -38,7 +38,7 @@ const InputWithLabel = forwardRef(
 					value={text}
 					placeholder='Test placeholder'
 					onChange={handleChange}
-					// autoFocus={isFocused}
+					//autoFocus={isFocused}
 				/>
 			</section>
 		);
@@ -52,5 +52,7 @@ InputWithLabel.propTypes = {
 	onInputChange: func.isRequired,
 	children: node,
 };
+
+InputWithLabel.displayName = 'InputWithLabel';
 
 export default InputWithLabel;
