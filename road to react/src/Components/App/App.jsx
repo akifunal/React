@@ -24,25 +24,6 @@ export const useContextTest = () => {
 	return contextTest;
 };
 
-const initialStories = [
-	{
-		title: 'React',
-		url: 'https://reactjs.org/',
-		author: 'Jordan Walke',
-		num_comments: 3,
-		points: 4,
-		objectID: 0,
-	},
-	{
-		title: 'Redux',
-		url: 'https://redux.js.org/',
-		author: 'Dan Abramov, Andrew Clark',
-		num_comments: 2,
-		points: 5,
-		objectID: 1,
-	},
-];
-
 const storiesReducer = (state, action) => {
 	switch (action.type) {
 		case 'STORIES_FETCH_INIT':
@@ -76,14 +57,35 @@ const storiesReducer = (state, action) => {
 	}
 };
 
-const getAsyncStories = () =>
-	new Promise(resolve => {
-		setTimeout(() => resolve({ data: { stories: initialStories } }), 1500);
-	});
+// const initialStories = [
+// 	{
+// 		title: 'React',
+// 		url: 'https://reactjs.org/',
+// 		author: 'Jordan Walke',
+// 		num_comments: 3,
+// 		points: 4,
+// 		objectID: 0,
+// 	},
+// 	{
+// 		title: 'Redux',
+// 		url: 'https://redux.js.org/',
+// 		author: 'Dan Abramov, Andrew Clark',
+// 		num_comments: 2,
+// 		points: 5,
+// 		objectID: 1,
+// 	},
+// ];
+
+// const getAsyncStories = () =>
+// 	new Promise(resolve => {
+// 		setTimeout(() => resolve({ data: { stories: initialStories } }), 1500);
+// 	});
+
+const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
 
 const App = () => {
 	const refTest = useRef(null);
-	//const [stories, setStories] = useState([]);
+
 	const [stories, dispatchStories] = useReducer(storiesReducer, {
 		data: [],
 		isLoading: false,
@@ -95,21 +97,15 @@ const App = () => {
 	useEffect(() => {
 		dispatchStories({ type: 'STORIES_FETCH_INIT' });
 
-		getAsyncStories()
+		fetch(`${API_ENDPOINT}react`)
+			.then(response => response.json())
 			.then(result => {
 				dispatchStories({
 					type: 'STORIES_FETCH_SUCCESS',
-					payload: result.data.stories,
+					payload: result.hits,
 				});
-
-				// dispatchStories({ type: 'SET_STORIES', payload: result.data.stories });
-				// setIsLoading(false);
-				//throw new Error('Something went wrong');
 			})
-			.catch(
-				() => dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
-				// setIsError(true)
-			);
+			.catch(() => dispatchStories({ type: 'STORIES_FETCH_FAILURE' }));
 	}, []);
 
 	const searchedStories = stories.data.filter(story =>
@@ -127,14 +123,10 @@ const App = () => {
 		});
 	};
 
-	console.log('test ', refTest.current);
-
 	return (
 		<>
 			<header className='p-3'>
-				<h1
-					ref={refTest}
-					className='w-1/4 text-4xl text-center text-gray-600 dark:text-gray-200'>
+				<h1 className='w-1/4 text-4xl text-center text-gray-600 dark:text-gray-200'>
 					My Hacker Stories
 				</h1>
 			</header>

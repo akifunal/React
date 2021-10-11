@@ -6,13 +6,16 @@ import withBgWrapper from '@helper/withBgWrapper';
 const List = ({ list, onRemoveItem }) =>
 	list.length > 0 ? (
 		<section id='result-list'>
-			{list.map(item => {
+			{list.map((item, index) => {
 				const ItemEnhanced = withBgWrapper(Item, 'ItemWithBg', 'bg-yellow-600');
 
 				return (
 					<React.Fragment key={item.objectID}>
-						<ItemEnhanced item={item} onRemoveItem={onRemoveItem} />
-						<Item item={item} onRemoveItem={onRemoveItem} />
+						{index % 2 === 0 ? (
+							<ItemEnhanced item={item} onRemoveItem={onRemoveItem} />
+						) : (
+							<Item item={item} onRemoveItem={onRemoveItem} />
+						)}
 					</React.Fragment>
 				);
 
@@ -25,7 +28,7 @@ List.propTypes = {
 	list: arrayOf(
 		shape({
 			author: string.isRequired,
-			objectID: number.isRequired,
+			objectID: string.isRequired,
 			title: string.isRequired,
 			url: string.isRequired,
 			num_comments: number.isRequired,

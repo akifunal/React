@@ -12,9 +12,9 @@ const Item = ({ item, onRemoveItem }) => {
 					{item.title}
 				</a>
 			</span>
-			<span>{item.author}</span>
-			<span>{item.num_comments}</span>
-			<span>{item.points}</span>
+			<cite>{item.author}</cite>
+			<em>{item.num_comments}</em>
+			<b>{item.points}</b>
 			<span>
 				<button
 					className='px-2 py-1 font-semibold text-gray-800 bg-white border border-gray-400 rounded shadow hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-400'
@@ -31,7 +31,7 @@ Item.propTypes = {
 	item: shape({
 		author: string.isRequired,
 		num_comments: number.isRequired,
-		objectID: number.isRequired,
+		objectID: string.isRequired,
 		points: number.isRequired,
 		title: string.isRequired,
 		url: string.isRequired,
