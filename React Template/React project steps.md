@@ -1,7 +1,6 @@
 # 1 - Create react app
 
-//to create react app
-npx create-react-app your-app-name
+    npx create-react-app your-app-name
 
     //go to the app directory
       cd your-app-name
@@ -15,7 +14,7 @@ npx create-react-app your-app-name
 
 # 3 - **craco** (pathler için cra config override için)
 
-    [craco-installation](https://www.npmjs.com/package/@craco/craco#installation)
+<https://www.npmjs.com/package/@craco/craco#installation>
 
     npm i @craco/craco
 
@@ -34,13 +33,13 @@ npx create-react-app your-app-name
 
 # 5 - **cra css reset**
 
-    <https://create-react-app.dev/docs/adding-css-reset/>
+<https://create-react-app.dev/docs/adding-css-reset/>
 
     @import-normalize;
 
 # 6 - **tailwindcss**
 
-    [tailwindcss-cra](https://tailwindcss.com/docs/guides/create-react-app)
+<https://tailwindcss.com/docs/guides/create-react-app>
 
     @tailwind base;
     @tailwind components;
@@ -54,7 +53,7 @@ npx create-react-app your-app-name
 
 # 7 - **Stylelint**
 
-    <https://actionauta.com/notes/integrating-tailwind-css-modules-sass-stylelint-nextjs>
+<https://actionauta.com/notes/integrating-tailwind-css-modules-sass-stylelint-nextjs>
 
     npm i -D stylelint stylelint-config-recommended-scss stylelint-order stylelint-scss
 
