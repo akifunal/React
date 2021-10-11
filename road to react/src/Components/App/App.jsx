@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useReducer } from 'react';
+import {
+	createContext,
+	useContext,
+	useEffect,
+	useReducer,
+	useRef,
+} from 'react';
 
 import List from '@List/List';
 import InputWithLabel from '@InputWithLabel/InputWithLabel';
@@ -76,6 +82,7 @@ const getAsyncStories = () =>
 	});
 
 const App = () => {
+	const refTest = useRef(null);
 	//const [stories, setStories] = useState([]);
 	const [stories, dispatchStories] = useReducer(storiesReducer, {
 		data: [],
@@ -120,10 +127,14 @@ const App = () => {
 		});
 	};
 
+	console.log('test ', refTest.current);
+
 	return (
 		<>
 			<header className='p-3'>
-				<h1 className='w-1/4 text-4xl text-center text-gray-600 dark:text-gray-200'>
+				<h1
+					ref={refTest}
+					className='w-1/4 text-4xl text-center text-gray-600 dark:text-gray-200'>
 					My Hacker Stories
 				</h1>
 			</header>
@@ -131,6 +142,7 @@ const App = () => {
 			<main>
 				<ContextTest.Provider value={{ searchTerm, setSearchTerm }}>
 					<InputWithLabel
+						ref={refTest}
 						id='search'
 						isFocused
 						value={searchTerm}
