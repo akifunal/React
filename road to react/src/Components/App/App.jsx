@@ -1,10 +1,14 @@
 import {
 	createContext,
+	useCallback,
 	useContext,
 	useEffect,
 	useReducer,
 	useRef,
+	useState,
 } from 'react';
+
+import axios from 'axios';
 
 import List from '@List/List';
 import InputWithLabel from '@InputWithLabel/InputWithLabel';
@@ -57,30 +61,6 @@ const storiesReducer = (state, action) => {
 	}
 };
 
-// const initialStories = [
-// 	{
-// 		title: 'React',
-// 		url: 'https://reactjs.org/',
-// 		author: 'Jordan Walke',
-// 		num_comments: 3,
-// 		points: 4,
-// 		objectID: 0,
-// 	},
-// 	{
-// 		title: 'Redux',
-// 		url: 'https://redux.js.org/',
-// 		author: 'Dan Abramov, Andrew Clark',
-// 		num_comments: 2,
-// 		points: 5,
-// 		objectID: 1,
-// 	},
-// ];
-
-// const getAsyncStories = () =>
-// 	new Promise(resolve => {
-// 		setTimeout(() => resolve({ data: { stories: initialStories } }), 1500);
-// 	});
-
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
 
 const App = () => {
@@ -92,35 +72,39 @@ const App = () => {
 		isError: false,
 	});
 
-	const [searchTerm, setSearchTerm] = useSemiPersistentState('state', 'React');
+	const [searchTerm, setSearchTerm] = useSemiPersistentState('search', 'React');
 
-	useEffect(() => {
+	const [url, setUrl] = useState(`${API_ENDPOINT}${searchTerm}`);
+
+	const handleFetchStories = useCallback(() => {
 		dispatchStories({ type: 'STORIES_FETCH_INIT' });
 
-		fetch(`${API_ENDPOINT}react`)
-			.then(response => response.json())
+		axios
+			.get(url)
 			.then(result => {
 				dispatchStories({
 					type: 'STORIES_FETCH_SUCCESS',
-					payload: result.hits,
+					payload: result.data.hits,
 				});
 			})
 			.catch(() => dispatchStories({ type: 'STORIES_FETCH_FAILURE' }));
-	}, []);
+	}, [url]);
 
-	const searchedStories = stories.data.filter(story =>
-		story.title.toLowerCase().includes(searchTerm.toLowerCase())
-	);
-
-	const handleSearch = e => {
-		setSearchTerm(e.target.value);
-	};
+	useEffect(() => handleFetchStories(), [handleFetchStories]);
 
 	const handleRemoveStory = item => {
 		dispatchStories({
 			type: 'REMOVE_STORY',
 			payload: item,
 		});
+	};
+
+	const handleSearchInput = e => {
+		setSearchTerm(e.target.value);
+	};
+
+	const handleSearchSubmit = e => {
+		setUrl(`${API_ENDPOINT}${searchTerm}`);
 	};
 
 	return (
@@ -138,12 +122,20 @@ const App = () => {
 						id='search'
 						isFocused
 						value={searchTerm}
-						onInputChange={handleSearch}>
+						onInputChange={handleSearchInput}>
 						<strong>Search:</strong>
 						<ChildTest />
 						<ChildTest />
 					</InputWithLabel>
 				</ContextTest.Provider>
+
+				<button
+					className='px-2 py-1 ml-8 font-semibold text-gray-800 bg-white border border-gray-400 rounded shadow hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-400'
+					type='button'
+					disabled={!searchTerm}
+					onClick={handleSearchSubmit}>
+					Submit
+				</button>
 
 				<hr className='my-4' />
 
@@ -156,7 +148,7 @@ const App = () => {
 						Loading...
 					</p>
 				) : (
-					<List list={searchedStories} onRemoveItem={handleRemoveStory} />
+					<List list={stories.data} onRemoveItem={handleRemoveStory} />
 				)}
 			</main>
 		</>
