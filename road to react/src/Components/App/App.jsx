@@ -1,32 +1,12 @@
-import {
-	createContext,
-	useCallback,
-	useContext,
-	useEffect,
-	useReducer,
-	useRef,
-	useState,
-} from 'react';
+import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 
 import axios from 'axios';
 
 import List from '@List/List';
-import InputWithLabel from '@InputWithLabel/InputWithLabel';
+
+import SearchForm from '@SearchForm/SearchForm';
+
 import useSemiPersistentState from '@hooks/useSemiPersistentState';
-
-import ChildTest from '../Rerender Test Child/ChildTest';
-
-const ContextTest = createContext();
-
-export const useContextTest = () => {
-	const contextTest = useContext(ContextTest);
-	if (contextTest === undefined) {
-		throw new Error(
-			'useContextTest must be used within a ContextTest.Provider '
-		);
-	}
-	return contextTest;
-};
 
 const storiesReducer = (state, action) => {
 	switch (action.type) {
@@ -105,6 +85,7 @@ const App = () => {
 	};
 
 	const handleSearchSubmit = e => {
+		e.preventDefault();
 		setUrl(`${API_ENDPOINT}${searchTerm}`);
 	};
 
@@ -117,26 +98,12 @@ const App = () => {
 			</header>
 
 			<main>
-				<ContextTest.Provider value={{ searchTerm, setSearchTerm }}>
-					<InputWithLabel
-						ref={refTest}
-						id='search'
-						isFocused
-						value={searchTerm}
-						onInputChange={handleSearchInput}>
-						<strong>Search:</strong>
-						<ChildTest />
-						<ChildTest />
-					</InputWithLabel>
-				</ContextTest.Provider>
-
-				<button
-					className='px-2 py-1 ml-8 font-semibold text-gray-800 bg-white border border-gray-400 rounded shadow hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-400'
-					type='button'
-					disabled={!searchTerm}
-					onClick={handleSearchSubmit}>
-					Submit
-				</button>
+				<SearchForm
+					searchTerm={searchTerm}
+					onSearchInput={handleSearchInput}
+					onSearchSubmit={handleSearchSubmit}
+					ref={refTest}
+				/>
 
 				<hr className='my-4' />
 
