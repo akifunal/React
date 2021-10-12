@@ -29,12 +29,12 @@ const Item = ({ item, onRemoveItem }) => {
 
 Item.propTypes = {
 	item: shape({
-		author: string.isRequired,
-		num_comments: number.isRequired,
-		objectID: string.isRequired,
-		points: number.isRequired,
-		title: string.isRequired,
-		url: string.isRequired,
+		author: string,
+		num_comments: number,
+		objectID: string,
+		points: number,
+		title: string,
+		url: string,
 	}).isRequired,
 };
 

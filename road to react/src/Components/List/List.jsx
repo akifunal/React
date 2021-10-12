@@ -27,12 +27,12 @@ const List = ({ list, onRemoveItem }) =>
 List.propTypes = {
 	list: arrayOf(
 		shape({
-			author: string.isRequired,
-			objectID: string.isRequired,
-			title: string.isRequired,
-			url: string.isRequired,
-			num_comments: number.isRequired,
-			points: number.isRequired,
+			author: string,
+			objectID: string,
+			title: string,
+			url: string,
+			num_comments: number,
+			points: number,
 		}).isRequired
 	).isRequired,
 };
