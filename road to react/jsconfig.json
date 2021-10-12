@@ -9,6 +9,7 @@
 
 			"@App/*": ["components/App/*"],
 			"@InputWithLabel/*": ["components/InputWithLabel/*"],
+			"@SearchForm/*": ["components/SearchForm/*"],
 			"@List/*": ["components/List/*"],
 			"@Item/*": ["components/List/Item/*"]
 		}

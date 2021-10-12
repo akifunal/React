@@ -14,6 +14,7 @@ module.exports = {
 			'@App': path.resolve(__dirname, 'src/components/App'),
 			'@List': path.resolve(__dirname, 'src/components/List'),
 			'@Item': path.resolve(__dirname, 'src/components/List/Item'),
+			'@SearchForm': path.resolve(__dirname, 'src/components/SearchForm'),
 			'@InputWithLabel': path.resolve(
 				__dirname,
 				'src/components/InputWithLabel'
