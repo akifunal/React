@@ -76,18 +76,19 @@ const App = () => {
 
 	const [url, setUrl] = useState(`${API_ENDPOINT}${searchTerm}`);
 
-	const handleFetchStories = useCallback(() => {
-		dispatchStories({ type: 'STORIES_FETCH_INIT' });
+	const handleFetchStories = useCallback(async () => {
+		try {
+			dispatchStories({ type: 'STORIES_FETCH_INIT' });
 
-		axios
-			.get(url)
-			.then(result => {
-				dispatchStories({
-					type: 'STORIES_FETCH_SUCCESS',
-					payload: result.data.hits,
-				});
-			})
-			.catch(() => dispatchStories({ type: 'STORIES_FETCH_FAILURE' }));
+			const result = await axios.get(url);
+
+			dispatchStories({
+				type: 'STORIES_FETCH_SUCCESS',
+				payload: result.data.hits,
+			});
+		} catch (error) {
+			dispatchStories({ type: 'STORIES_FETCH_FAILURE' });
+		}
 	}, [url]);
 
 	useEffect(() => handleFetchStories(), [handleFetchStories]);
