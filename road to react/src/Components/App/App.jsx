@@ -1,12 +1,10 @@
+import axios from 'axios';
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 
-import axios from 'axios';
+import useSemiPersistentState from '@hooks/useSemiPersistentState';
 
 import List from '@List/List';
-
 import SearchForm from '@SearchForm/SearchForm';
-
-import useSemiPersistentState from '@hooks/useSemiPersistentState';
 
 const storiesReducer = (state, action) => {
 	switch (action.type) {
@@ -73,12 +71,12 @@ const App = () => {
 
 	useEffect(() => handleFetchStories(), [handleFetchStories]);
 
-	const handleRemoveStory = item => {
+	const handleRemoveStory = useCallback(item => {
 		dispatchStories({
 			type: 'REMOVE_STORY',
 			payload: item,
 		});
-	};
+	}, []);
 
 	const handleSearchInput = e => {
 		setSearchTerm(e.target.value);
