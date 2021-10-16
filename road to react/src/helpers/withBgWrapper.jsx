@@ -7,7 +7,7 @@ const withBgWrapper = (Component, displayName, bgCssClass) => {
 		);
 	};
 
-	// To show component name on react developer tools
+	// To correctly show component name at react developer tools
 	WrappedComponent.displayName = `WithOrangeWrapper(${displayName})`;
 
 	return WrappedComponent;

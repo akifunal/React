@@ -1,5 +1,6 @@
-import { shape, string, number } from 'prop-types';
+import { number, shape, string } from 'prop-types';
 import { memo } from 'react';
+
 const Item = ({ item, onRemoveItem }) => {
 	const handleRemoveItem = () => {
 		onRemoveItem(item);
