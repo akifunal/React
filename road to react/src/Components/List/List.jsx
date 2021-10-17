@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment, memo } from 'react';
 import { arrayOf, shape, string, number } from 'prop-types';
 import Item from '@Item/Item';
 import withBgWrapper from '@helper/withBgWrapper';
@@ -10,13 +10,13 @@ const List = ({ list, onRemoveItem }) =>
 				const ItemEnhanced = withBgWrapper(Item, 'ItemWithBg', 'bg-yellow-600');
 
 				return (
-					<React.Fragment key={item.objectID}>
+					<Fragment key={item.objectID}>
 						{index % 2 === 0 ? (
 							<ItemEnhanced item={item} onRemoveItem={onRemoveItem} />
 						) : (
 							<Item item={item} onRemoveItem={onRemoveItem} />
 						)}
-					</React.Fragment>
+					</Fragment>
 				);
 
 				// return <Item key={objectID} item={item} />;
@@ -37,4 +37,4 @@ List.propTypes = {
 	).isRequired,
 };
 
-export default List;
+export default memo(List);
