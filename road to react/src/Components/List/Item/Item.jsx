@@ -39,4 +39,11 @@ Item.propTypes = {
 	}).isRequired,
 };
 
+// const MemoItem = memo(Item, (prevProps, nextProps) => {
+// 	if (prevProps.item.objectID === nextProps.item.objectID) {
+// 		return true;
+// 	}
+// 	return false;
+// });
+
 export default memo(Item);

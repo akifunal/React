@@ -1,28 +1,40 @@
-import { Fragment, memo } from 'react';
-import { arrayOf, shape, string, number } from 'prop-types';
-import Item from '@Item/Item';
+import { useMemo } from 'react';
+import { arrayOf, number, shape, string } from 'prop-types';
 import withBgWrapper from '@helper/withBgWrapper';
+import Item from '@Item/Item';
 
-const List = ({ list, onRemoveItem }) =>
-	list.length > 0 ? (
-		<section id='result-list'>
-			{list.map((item, index) => {
+const List = ({ list, onRemoveItem }) => {
+	const memoizedList = useMemo(
+		() =>
+			list.map((item, index) => {
 				const ItemEnhanced = withBgWrapper(Item, 'ItemWithBg', 'bg-yellow-600');
 
-				return (
-					<Fragment key={item.objectID}>
-						{index % 2 === 0 ? (
-							<ItemEnhanced item={item} onRemoveItem={onRemoveItem} />
-						) : (
-							<Item item={item} onRemoveItem={onRemoveItem} />
-						)}
-					</Fragment>
-				);
+				console.log('list running');
 
-				// return <Item key={objectID} item={item} />;
-			})}
-		</section>
+				if (index % 2 === 0)
+					return (
+						<ItemEnhanced
+							key={item.objectID}
+							item={item}
+							onRemoveItem={onRemoveItem}
+						/>
+					);
+				else
+					return (
+						<Item key={item.objectID} item={item} onRemoveItem={onRemoveItem} />
+					);
+
+				// return (
+				// 	<Item key={item.objectID} {...item} onRemoveItem={onRemoveItem} />
+				// );
+			}),
+		[list, onRemoveItem]
+	);
+
+	return list.length > 0 ? (
+		<section id='result-list'>{memoizedList}</section>
 	) : null;
+};
 
 List.propTypes = {
 	list: arrayOf(
@@ -37,4 +49,4 @@ List.propTypes = {
 	).isRequired,
 };
 
-export default memo(List);
+export default List;
