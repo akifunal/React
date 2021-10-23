@@ -1,10 +1,10 @@
-import { number, shape, string } from 'prop-types';
-import { memo } from 'react';
+import { number, shape, string } from 'prop-types'
+import { memo } from 'react'
 
 const Item = ({ item, onRemoveItem }) => {
 	const handleRemoveItem = () => {
-		onRemoveItem(item);
-	};
+		onRemoveItem(item)
+	}
 
 	return (
 		<div className='flex items-center justify-start gap-3 p-4 dark:text-gray-200'>
@@ -25,8 +25,8 @@ const Item = ({ item, onRemoveItem }) => {
 				</button>
 			</span>
 		</div>
-	);
-};
+	)
+}
 
 Item.propTypes = {
 	item: shape({
@@ -37,7 +37,7 @@ Item.propTypes = {
 		title: string,
 		url: string,
 	}).isRequired,
-};
+}
 
 // const MemoItem = memo(Item, (prevProps, nextProps) => {
 // 	if (prevProps.item.objectID === nextProps.item.objectID) {
@@ -46,4 +46,4 @@ Item.propTypes = {
 // 	return false;
 // });
 
-export default memo(Item);
+export default memo(Item)
