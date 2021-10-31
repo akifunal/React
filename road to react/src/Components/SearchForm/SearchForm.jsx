@@ -1,19 +1,20 @@
-import { createContext, useContext, forwardRef } from 'react';
+import { createContext, useContext, forwardRef } from 'react'
 
-import InputWithLabel from '@InputWithLabel/InputWithLabel';
-import ChildTest from '../Rerender Test Child/ChildTest';
+// import InputWithLabel from '@InputWithLabel/InputWithLabel';
+// import ChildTest from '../Rerender Test Child/ChildTest';
+import { ChildTest, InputWithLabel } from '@components/index'
 
-const ContextTest = createContext();
+const ContextTest = createContext()
 
 export const useContextTest = () => {
-	const contextTest = useContext(ContextTest);
+	const contextTest = useContext(ContextTest)
 	if (contextTest === undefined) {
 		throw new Error(
 			'useContextTest must be used within a ContextTest.Provider '
-		);
+		)
 	}
-	return contextTest;
-};
+	return contextTest
+}
 
 const SearchForm = forwardRef(
 	({ searchTerm, onSearchInput, onSearchSubmit }, ref) => {
@@ -39,10 +40,10 @@ const SearchForm = forwardRef(
 					Submit
 				</button>
 			</form>
-		);
+		)
 	}
-);
+)
 
-SearchForm.displayName = 'SearchForm';
+SearchForm.displayName = 'SearchForm'
 
-export default SearchForm;
+export default SearchForm

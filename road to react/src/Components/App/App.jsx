@@ -12,7 +12,8 @@ import {
 import useSemiPersistentState from '@hooks/useSemiPersistentState'
 
 // import List from '@List/List'
-import SearchForm from '@SearchForm/SearchForm'
+// import SearchForm from '@SearchForm/SearchForm'
+import { SearchForm } from '@components/index'
 
 // const List = lazy(() => import('@List/List'))
 
