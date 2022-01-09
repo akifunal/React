@@ -1,13 +1,13 @@
-const withBgWrapper = (Component, displayName, bgCssClass) => {
+const withBgWrapper = (Component, displayName) => {
 	const WrappedComponent = props => {
 		return (
-			<div className={`min-h-full ${bgCssClass}`}>
+			<div className={`min-h-full ${props.className}`}>
 				<Component {...props} />
 			</div>
 		)
 	}
 
-	// To correctly show component name at react developer tools
+	// To correctly show component name in React DevTools
 	WrappedComponent.displayName = `WithOrangeWrapper(${displayName})`
 
 	return WrappedComponent

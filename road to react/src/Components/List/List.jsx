@@ -1,14 +1,13 @@
 import { useMemo } from 'react'
 import { arrayOf, number, shape, string } from 'prop-types'
 import withBgWrapper from '@helper/withBgWrapper'
-// import Item from '@Item/Item';
 import { Item } from '@components/index'
 
 const List = ({ list, onRemoveItem }) => {
 	const memoizedList = useMemo(
 		() =>
 			list.map((item, index) => {
-				const ItemEnhanced = withBgWrapper(Item, 'ItemWithBg', 'bg-yellow-600')
+				const ItemEnhanced = withBgWrapper(Item, 'ItemWithBg')
 
 				console.log('list running')
 
@@ -18,6 +17,7 @@ const List = ({ list, onRemoveItem }) => {
 							key={item.objectID}
 							item={item}
 							onRemoveItem={onRemoveItem}
+							className='bg-yellow-600'
 						/>
 					)
 				else
@@ -32,7 +32,9 @@ const List = ({ list, onRemoveItem }) => {
 		[list, onRemoveItem]
 	)
 
-	return list.length > 0 ? (
+	// console.log('B:List')
+
+	return console.log('B:List') || list.length > 0 ? (
 		<section id='result-list'>{memoizedList}</section>
 	) : null
 }
