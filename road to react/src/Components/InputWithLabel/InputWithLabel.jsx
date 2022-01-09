@@ -6,15 +6,11 @@ import styles from './InputWithLabel.module.scss'
 
 const InputWithLabel = forwardRef(
 	({ id, isFocused, value, type = 'text', onInputChange, children }, ref) => {
-		const [text, setText] = useState('')
 		const inputRef = useRef()
 
 		useEffect(() => {
-			const { current: input } = inputRef
-			if (isFocused && input) input.focus()
+			if (isFocused) inputRef?.current?.input?.focus()
 		}, [isFocused])
-
-		const handleChange = e => setText(e.target.value)
 
 		return (
 			<section id='search' className='p-4'>
@@ -32,14 +28,6 @@ const InputWithLabel = forwardRef(
 					placeholder='Search'
 					onChange={onInputChange}
 					ref={inputRef}
-					//autoFocus={isFocused}
-				/>
-				<input
-					type={type}
-					className={styles['input-text']}
-					value={text}
-					placeholder='Test placeholder'
-					onChange={handleChange}
 					//autoFocus={isFocused}
 				/>
 			</section>
