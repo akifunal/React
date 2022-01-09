@@ -1,20 +1,13 @@
-import { useContextTest } from '@SearchForm/SearchForm';
-import { useEffect } from 'react';
+import { useContextTest } from '@SearchForm/SearchForm'
 
 const ChildTest = () => {
-	const { searchTerm, onSearchInput } = useContextTest();
-
-	// useEffect(() => {
-	// 	setTimeout(() => {
-	// 		setStateTest('selamlar');
-	// 	}, 1500);
-	// }, []);
+	const { searchTerm } = useContextTest()
 
 	return (
 		<div>
 			<p>{`Context: ${searchTerm}`}</p>
 		</div>
-	);
-};
+	)
+}
 
-export default ChildTest;
+export default ChildTest

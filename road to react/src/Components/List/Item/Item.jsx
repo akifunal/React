@@ -1,13 +1,16 @@
-import { number, shape, string } from 'prop-types'
+import { func, number, shape, string } from 'prop-types'
 import { memo } from 'react'
 
-const Item = ({ item, onRemoveItem }) => {
+const Item = ({ item, onRemoveItem, className }) => {
 	const handleRemoveItem = () => {
 		onRemoveItem(item)
 	}
 
+	console.log('B:Item')
+
 	return (
-		<div className='flex items-center justify-start gap-3 p-4 dark:text-gray-200'>
+		<div
+			className={`flex items-center justify-start gap-3 p-4 dark:text-gray-200 ${className}`}>
 			<span>
 				<a className='hover:bg-steel-blue-default' href={item.url}>
 					{item.title}
@@ -37,6 +40,12 @@ Item.propTypes = {
 		title: string,
 		url: string,
 	}).isRequired,
+	onRemoveItem: func.isRequired,
+	className: string,
+}
+
+Item.defaultProps = {
+	className: '',
 }
 
 // const MemoItem = memo(Item, (prevProps, nextProps) => {
