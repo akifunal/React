@@ -6,8 +6,6 @@ const Item = ({ item, onRemoveItem, className }) => {
 		onRemoveItem(item)
 	}
 
-	console.log('B:Item')
-
 	return (
 		<div
 			className={`flex items-center justify-start gap-3 p-4 dark:text-gray-200 ${className}`}>

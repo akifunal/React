@@ -4,7 +4,6 @@ import { Item } from '@components/index'
 
 const List = ({ list, onRemoveItem }) => {
 	const memoizedList = useMemo(() => {
-		console.log('useMemo:List')
 		return list.map((item, index) => {
 			// const ItemEnhanced = withBgWrapper(Item, 'ItemWithBg')
 
@@ -23,8 +22,6 @@ const List = ({ list, onRemoveItem }) => {
 				)
 		})
 	}, [list, onRemoveItem])
-
-	console.log('B:List')
 
 	return list.length > 0 ? (
 		<section id='result-list'>{memoizedList}</section>

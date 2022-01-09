@@ -1,4 +1,4 @@
-import { createContext, useContext, forwardRef } from 'react'
+import { createContext, useContext, forwardRef, memo } from 'react'
 
 // import InputWithLabel from '@InputWithLabel/InputWithLabel';
 // import ChildTest from '../Rerender Test Child/ChildTest';
@@ -29,7 +29,6 @@ const SearchForm = forwardRef(
 						onInputChange={onSearchInput}>
 						<strong>Search:</strong>
 						<ChildTest />
-						<ChildTest />
 					</InputWithLabel>
 				</ContextTest.Provider>
 
@@ -46,4 +45,4 @@ const SearchForm = forwardRef(
 
 SearchForm.displayName = 'SearchForm'
 
-export default SearchForm
+export default memo(SearchForm)

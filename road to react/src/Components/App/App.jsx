@@ -1,5 +1,6 @@
 // @ts-nocheck
 import axios from 'axios'
+import TwinSpin from 'react-cssfx-loading/lib/TwinSpin'
 import {
 	useCallback,
 	useEffect,
@@ -8,6 +9,7 @@ import {
 	useState,
 	Suspense,
 	lazy,
+	useMemo,
 } from 'react'
 
 import useSemiPersistentState from '@hooks/useSemiPersistentState'
@@ -18,6 +20,10 @@ import { SearchForm } from '@components/index'
 // Preloading a lazy component
 const listPromise = import('@List/List')
 const List = lazy(() => listPromise)
+
+const getSumComments = stories => {
+	return stories.reduce((result, value) => result + value.num_comments, 0)
+}
 
 const storiesReducer = (state, action) => {
 	switch (action.type) {
@@ -84,6 +90,11 @@ const App = () => {
 
 	useEffect(() => handleFetchStories(), [handleFetchStories])
 
+	const sumComments = useMemo(
+		() => getSumComments(stories.data),
+		[stories.data]
+	)
+
 	const handleRemoveStory = useCallback(item => {
 		dispatchStories({
 			type: 'REMOVE_STORY',
@@ -91,26 +102,30 @@ const App = () => {
 		})
 	}, [])
 
-	const handleSearchInput = e => {
-		setSearchTerm(e.target.value)
-	}
+	const handleSearchInput = useCallback(
+		({ target: { value } }) => {
+			setSearchTerm(value)
+		},
+		[setSearchTerm]
+	)
 
-	const handleSearchSubmit = e => {
-		e.preventDefault()
-		setUrl(`${API_ENDPOINT}${searchTerm}`)
-	}
-
-	console.log('B:App')
+	const handleSearchSubmit = useCallback(
+		e => {
+			e.preventDefault()
+			setUrl(`${API_ENDPOINT}${searchTerm}`)
+		},
+		[setUrl, searchTerm]
+	)
 
 	return (
 		<>
 			<header className='p-3'>
-				<h1 className='w-1/4 text-4xl text-center text-gray-600 dark:text-gray-200'>
-					My Hacker Stories
+				<h1 className='text-4xl text-center text-gray-600 w-max dark:text-gray-200'>
+					My Hacker Stories with {sumComments} comments.
 				</h1>
 			</header>
 
-			<main>
+			<main className='flex flex-col flex-grow'>
 				<SearchForm
 					searchTerm={searchTerm}
 					onSearchInput={handleSearchInput}
@@ -125,9 +140,9 @@ const App = () => {
 						Something went wrong...
 					</p>
 				) : stories.isLoading ? (
-					<p className='flex items-center justify-center h-full text-5xl dark:text-white-default'>
-						Loading...
-					</p>
+					<div className='flex items-center justify-center flex-grow'>
+						<TwinSpin color='#FF0000' width='10rem' height='10rem' />
+					</div>
 				) : (
 					<Suspense
 						fallback={
