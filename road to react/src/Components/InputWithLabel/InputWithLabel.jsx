@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { string, func, node } from 'prop-types'
-import { forwardRef, useEffect, useState, useRef } from 'react'
+import { forwardRef, useEffect, useRef } from 'react'
 
 import styles from './InputWithLabel.module.scss'
 
