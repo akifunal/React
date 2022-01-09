@@ -1,3 +1,4 @@
+// @ts-nocheck
 import axios from 'axios'
 import {
 	useCallback,
@@ -15,7 +16,7 @@ import useSemiPersistentState from '@hooks/useSemiPersistentState'
 // import SearchForm from '@SearchForm/SearchForm'
 import { SearchForm } from '@components/index'
 
-// const List = lazy(() => import('@List/List'))
+//const List = lazy(() => import('@List/List'))
 
 // Preloading a lazy component
 const listPromise = import('@List/List')

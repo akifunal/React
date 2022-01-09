@@ -1,18 +1,26 @@
-import { useState, useEffect } from 'react';
-import { string } from 'prop-types';
+import { useState, useEffect, useRef } from 'react'
+import { string } from 'prop-types'
 
 const useSemiPersistentState = (key, initialState) => {
-	const [value, setValue] = useState(localStorage.getItem(key) || initialState);
-	useEffect(() => {
-		localStorage.setItem(key, value);
-	}, [value, key]);
+	// ismounted ref to check if component is mounted
+	const isMounted = useRef(false)
 
-	return [value, setValue];
-};
+	const [value, setValue] = useState(localStorage.getItem(key) || initialState)
+
+	useEffect(() => {
+		if (!isMounted.current) {
+			isMounted.current = true // set to true when component is mounted
+		} else {
+			localStorage.setItem(key, value)
+		}
+	}, [key, value])
+
+	return [value, setValue]
+}
 
 useSemiPersistentState.propTypes = {
 	key: string.isRequired,
 	initialState: string.isRequired,
-};
+}
 
-export default useSemiPersistentState;
+export default useSemiPersistentState

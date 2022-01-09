@@ -1,18 +1,18 @@
-import { string, func, node } from 'prop-types';
-import { forwardRef, useEffect, useState, useRef } from 'react';
+import { string, func, node } from 'prop-types'
+import { forwardRef, useEffect, useState, useRef } from 'react'
 
-import styles from './InputWithLabel.module.scss';
+import styles from './InputWithLabel.module.scss'
 
 const InputWithLabel = forwardRef(
 	({ id, isFocused, value, type = 'text', onInputChange, children }, ref) => {
-		const [text, setText] = useState('');
-		const inputRef = useRef();
+		const [text, setText] = useState('')
+		const inputRef = useRef()
 
 		useEffect(() => {
-			if (isFocused && inputRef.current) inputRef.current.focus();
-		}, [isFocused]);
+			if (isFocused && inputRef.current) inputRef.current.focus()
+		}, [isFocused])
 
-		const handleChange = e => setText(e.target.value);
+		const handleChange = e => setText(e.target.value)
 
 		return (
 			<section id='search' className='p-4'>
@@ -41,9 +41,9 @@ const InputWithLabel = forwardRef(
 					//autoFocus={isFocused}
 				/>
 			</section>
-		);
+		)
 	}
-);
+)
 
 InputWithLabel.propTypes = {
 	id: string.isRequired,
@@ -51,8 +51,8 @@ InputWithLabel.propTypes = {
 	type: string,
 	onInputChange: func.isRequired,
 	children: node,
-};
+}
 
-InputWithLabel.displayName = 'InputWithLabel';
+InputWithLabel.displayName = 'InputWithLabel'
 
-export default InputWithLabel;
+export default InputWithLabel
