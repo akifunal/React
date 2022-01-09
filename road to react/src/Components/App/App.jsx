@@ -9,7 +9,6 @@ import {
 	useState,
 	Suspense,
 	lazy,
-	useMemo,
 } from 'react'
 
 import useSemiPersistentState from '@hooks/useSemiPersistentState'
@@ -90,32 +89,23 @@ const App = () => {
 
 	useEffect(() => handleFetchStories(), [handleFetchStories])
 
-	const sumComments = useMemo(
-		() => getSumComments(stories.data),
-		[stories.data]
-	)
+	const sumComments = () => getSumComments(stories.data)
 
-	const handleRemoveStory = useCallback(item => {
+	const handleRemoveStory = item => {
 		dispatchStories({
 			type: 'REMOVE_STORY',
 			payload: item,
 		})
-	}, [])
+	}
 
-	const handleSearchInput = useCallback(
-		({ target: { value } }) => {
-			setSearchTerm(value)
-		},
-		[setSearchTerm]
-	)
+	const handleSearchInput = ({ target: { value } }) => {
+		setSearchTerm(value)
+	}
 
-	const handleSearchSubmit = useCallback(
-		e => {
-			e.preventDefault()
-			setUrl(`${API_ENDPOINT}${searchTerm}`)
-		},
-		[setUrl, searchTerm]
-	)
+	const handleSearchSubmit = e => {
+		e.preventDefault()
+		setUrl(`${API_ENDPOINT}${searchTerm}`)
+	}
 
 	return (
 		<>
@@ -132,14 +122,13 @@ const App = () => {
 					onSearchSubmit={handleSearchSubmit}
 					ref={refTest}
 				/>
-
 				<hr className='my-4' />
-
-				{stories.isError ? (
+				{stories.isError && (
 					<p className='flex items-center justify-center h-full text-5xl dark:text-white-default'>
 						Something went wrong...
 					</p>
-				) : stories.isLoading ? (
+				)}
+				{stories.isLoading ? (
 					<div className='flex items-center justify-center flex-grow'>
 						<TwinSpin color='#FF0000' width='10rem' height='10rem' />
 					</div>

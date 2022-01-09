@@ -1,30 +1,22 @@
-import { memo, useMemo } from 'react'
 import { arrayOf, number, shape, string } from 'prop-types'
 import { Item } from '@components/index'
 
 const List = ({ list, onRemoveItem }) => {
-	const memoizedList = useMemo(() => {
-		return list.map((item, index) => {
-			// const ItemEnhanced = withBgWrapper(Item, 'ItemWithBg')
-
-			if (index % 2 === 0)
-				return (
+	return list.length > 0 ? (
+		<section id='result-list'>
+			{list.map((item, index) =>
+				index % 2 === 0 ? (
 					<Item
 						key={item.objectID}
 						item={item}
 						onRemoveItem={onRemoveItem}
 						className='bg-yellow-600'
 					/>
-				)
-			else
-				return (
+				) : (
 					<Item key={item.objectID} item={item} onRemoveItem={onRemoveItem} />
 				)
-		})
-	}, [list, onRemoveItem])
-
-	return list.length > 0 ? (
-		<section id='result-list'>{memoizedList}</section>
+			)}
+		</section>
 	) : null
 }
 
@@ -41,4 +33,4 @@ List.propTypes = {
 	).isRequired,
 }
 
-export default memo(List)
+export default List

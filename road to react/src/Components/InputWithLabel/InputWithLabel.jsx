@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { string, func, node } from 'prop-types'
 import { forwardRef, useEffect, useState, useRef } from 'react'
 
@@ -9,7 +10,8 @@ const InputWithLabel = forwardRef(
 		const inputRef = useRef()
 
 		useEffect(() => {
-			if (isFocused && inputRef.current) inputRef.current.focus()
+			const { current: input } = inputRef
+			if (isFocused && input) input.focus()
 		}, [isFocused])
 
 		const handleChange = e => setText(e.target.value)

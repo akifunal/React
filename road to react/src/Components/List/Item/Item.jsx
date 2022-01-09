@@ -1,5 +1,4 @@
 import { func, number, shape, string } from 'prop-types'
-import { memo } from 'react'
 
 const Item = ({ item, onRemoveItem, className }) => {
 	const handleRemoveItem = () => {
@@ -46,11 +45,4 @@ Item.defaultProps = {
 	className: '',
 }
 
-// const MemoItem = memo(Item, (prevProps, nextProps) => {
-// 	if (prevProps.item.objectID === nextProps.item.objectID) {
-// 		return true;
-// 	}
-// 	return false;
-// });
-
-export default memo(Item)
+export default Item

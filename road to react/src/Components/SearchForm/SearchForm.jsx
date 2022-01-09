@@ -1,7 +1,6 @@
-import { createContext, useContext, forwardRef, memo } from 'react'
+// @ts-nocheck
+import { createContext, useContext, forwardRef } from 'react'
 
-// import InputWithLabel from '@InputWithLabel/InputWithLabel';
-// import ChildTest from '../Rerender Test Child/ChildTest';
 import { ChildTest, InputWithLabel } from '@components/index'
 
 const ContextTest = createContext()
@@ -45,4 +44,4 @@ const SearchForm = forwardRef(
 
 SearchForm.displayName = 'SearchForm'
 
-export default memo(SearchForm)
+export default SearchForm
