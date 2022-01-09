@@ -1,6 +1,5 @@
 import { memo, useMemo } from 'react'
 import { arrayOf, number, shape, string } from 'prop-types'
-import withBgWrapper from '@helper/withBgWrapper'
 import { Item } from '@components/index'
 
 const List = ({ list, onRemoveItem }) => {
